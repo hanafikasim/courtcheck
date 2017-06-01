@@ -5,21 +5,37 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+import { NgCalendarModule  } from 'ionic2-calendar';
+
+import { AboutPage } from '../pages/about/about';
+import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
+import { TabsPage } from '../pages/tabs/tabs';
+import { ProfilePage } from '../pages/profile/profile';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage,
+    ProfilePage
   ],
   imports: [
+    NgCalendarModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    AboutPage,
+    ContactPage,
+    HomePage,
+    TabsPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,
