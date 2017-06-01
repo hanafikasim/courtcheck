@@ -11,8 +11,26 @@ export class AboutPage {
 
   }
 
+  items = [{
+    start: "3:00 PM",
+    day: "Monday",
+    date: "September 11, 2017",
+    index: 0
+  },
+  {
+    start: "10:00 PM",
+    day: "Saturday",
+    date: "September 16, 2017",
+    index: 1
+  },
+  {
+    start: "8:00 PM",
+    day: "Thursday",
+    date: "November 9, 2017",
+    index: 2
+  }];
 
-  cancelConfirm() {
+  cancelConfirm(index) {
       let alert = this.alertCtrl.create({
         title: 'Confirm cancel booking',
         message: 'Are you sure to cancel this booking?',
@@ -28,6 +46,7 @@ export class AboutPage {
             text: 'Sure',
             handler: () => {
               console.log('Sure clicked');
+              this.items.splice(index, 1);
             }
           }
         ]

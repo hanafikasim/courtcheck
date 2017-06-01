@@ -8,20 +8,12 @@
 
 <ion-content padding>
   <ion-list inset>
-    <ion-item>
+    <ion-item ion-item *ngFor="let item of items">
       <ion-icon name="alarm" item-left></ion-icon>
-      <h2>3:00 PM</h2>
-      <h2>Monday</h2>
-      <p>September 11, 2017</p>
-      <button ion-button color="danger" default item-right (click)="cancelConfirm()">Cancel</button>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="alarm" item-left></ion-icon>
-      <h2>10:00 AM</h2>
-      <h2>Saturday</h2>
-      <p>September 16, 2017</p>
-      <button ion-button color="danger" default (click)="cancelConfirm()" item-right>Cancel</button>
-    </ion-item>
-    
+      <h2>{{item.start}}</h2>
+      <h2>{{item.day}}</h2>
+      <p>{{item.date}}</p>
+      <button ion-button color="danger" default item-right (click)="cancelConfirm(item.index)">Cancel</button>
+    </ion-item>    
   </ion-list>
 </ion-content>
