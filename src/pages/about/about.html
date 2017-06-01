@@ -7,20 +7,20 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
+  <ion-list inset>
     <ion-item>
+      <ion-icon name="alarm" item-left></ion-icon>
+      <h2>3:00 PM</h2>
       <h2>Monday</h2>
-      <h3>September 11, 2017</h3>
-      <ion-buttons end>
-        <button ion-button color="danger">Cancel</button>
-      </ion-buttons>
+      <p>September 11, 2017</p>
+      <button ion-button color="danger" default item-right (click)="cancelConfirm()">Cancel</button>
     </ion-item>
     <ion-item>
+      <ion-icon name="alarm" item-left></ion-icon>
+      <h2>10:00 AM</h2>
       <h2>Saturday</h2>
-      <h3>September 16, 2017</h3>
-      <ion-buttons end>
-        <button ion-button color="danger">Cancel</button>
-      </ion-buttons>
+      <p>September 16, 2017</p>
+      <button ion-button color="danger" default (click)="cancelConfirm()" item-right>Cancel</button>
     </ion-item>
     
   </ion-list>

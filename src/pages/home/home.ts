@@ -14,6 +14,11 @@ export class HomePage {
     events =  [];
     declineBook = true;
     counter = 0;
+    masa
+    startTime;
+    endTime;
+    dayNight;
+    timeSlot;
 
     isToday:boolean;
 
@@ -60,10 +65,10 @@ export class HomePage {
     //=================
 
     // Not available time slot alert
-    presentAlert() {
+    timeSlotAlert() {
       let alert = this.alertCtrl.create({
         title: 'Close time',
-        subTitle: 'Slot time available from 8AM to 10PM.',
+        message: 'Time slot available from 8:00 AM to 10:00 PM.',
         buttons: ['Got it!']
       });
       alert.present();
@@ -80,10 +85,11 @@ export class HomePage {
     }
 
     // Confirm book alert
-    presentConfirm() {
+    bookingConfirm() {
       let alert = this.alertCtrl.create({
         title: 'Confirm book',
         message: 'Do you want to book this slot?',
+        subTitle: 'Time slot: ' + this.timeSlot + ':00 ' + this.dayNight,
         buttons: [
           {
             text: 'Cancel',
@@ -95,6 +101,7 @@ export class HomePage {
           {
             text: 'Book',
             handler: () => {
+              this.onCreateEvent();
               console.log('Book clicked');
             }
           }
@@ -122,35 +129,51 @@ export class HomePage {
         this.calendar.mode = mode;
     }
 
+    onCreateEvent(){
+        console.log("Hour : " + this.masa.getHours());
+        this.startTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(), this.masa.getHours());
+        this.endTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(),  this.masa.getHours()+1);
+
+        this.events.push({
+                    title: 'Book ' + (this.counter + 1),
+                    startTime: this.startTime,
+                    endTime: this.endTime,
+                    allDay: false
+                    
+        });
+        
+        this.counter+=1;
+        
+        this.eventSource = this.events;
+    }
+
     onTimeSelected(ev) {
-         var eventsReset = [];
+         //var eventsReset = [];
          //var startDay = 1;
          //var endDay = 1;
-         var startTime;
-         var endTime;
 
         console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
             (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);
-        var masa = new Date(ev.selectedTime);
-         console.log("Today is " + masa);
+         this.masa = new Date(ev.selectedTime);
+         console.log("Today is " + this.masa);
 
-         if(masa.getHours()>=8 &&masa.getHours()<=22){
+         if(this.masa.getHours()>=8 && this.masa.getHours()<=22){
            if(this.declineBook == true){
-                startTime = new Date(masa.getFullYear(), masa.getMonth(), masa.getDate(),  masa.getHours() );
-                endTime = new Date(masa.getFullYear(), masa.getMonth(), masa.getDate(),  masa.getHours()+1);
+               if(this.masa.getHours()>= 0 && this.masa.getHours()<=11){
+                   this.timeSlot = this.masa.getHours();
+                   this.dayNight = "AM"
+                }
+               else if(this.masa.getHours()>= 12 && this.masa.getHours()<=23){
+                   if(this.masa.getHours()>= 13 && this.masa.getHours()<=23){
+                       this.timeSlot = this.masa.getHours() - 12;
+                   }
+                   else{
+                       this.timeSlot = this.masa.getHours();
+                   }
+                   this.dayNight = "PM"
+                }
 
-                console.log("Hour : " + masa.getHours());
-
-                this.events.push({
-                            title: 'Book' + this.counter,
-                            startTime: startTime,
-                            endTime: endTime,
-                            allDay: false
-                            
-                });
-                this.counter+=1;
-                this.eventSource = this.events;
-                
+               this.bookingConfirm();                
            }
            this.declineBook = true;    
 
@@ -161,10 +184,10 @@ export class HomePage {
          }
          else
          {
-            this.presentAlert();
+            this.timeSlotAlert();
          }
 
-         
+         //location.reload();
     }
 
     //=================
