@@ -1,19 +1,19 @@
 <ion-header>
   <ion-navbar color="primary">
     
-    <ion-title centre>
+    <ion-title>
       Time Slot
+    </ion-title>
+  </ion-navbar>
+  <ion-navbar color="dark">
+    <ion-title>
+      {{viewTitle}}
     </ion-title>
     <ion-buttons end>
       <button ion-button [disabled]="isToday" (click)="today()">Today</button>
       <button ion-button (click)="changeMode('week')">W</button>
       <button ion-button (click)="changeMode('day')">D</button>
     </ion-buttons>
-  </ion-navbar>
-  <ion-navbar>
-    <ion-title centre >
-      {{viewTitle}}
-    </ion-title>
   </ion-navbar>
 </ion-header>
 
