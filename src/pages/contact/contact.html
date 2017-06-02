@@ -7,10 +7,19 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <img src="http://vignette1.wikia.nocookie.net/thelastofus/images/d/d5/The_Last_of_Us_Part_II.jpg/revision/latest?cb=20161203203304">
-    <ion-card-content>
-      <p>The Last of Us Part II is an upcoming action-adventure survival horror video game developed by Naughty Dog and published by Sony Interactive Entertainment for PlayStation 4.</p>
-    </ion-card-content>
-  </ion-card>
+  <ion-list>
+    <ion-item ion-item *ngFor="let news2 of news">
+      <ion-card>
+        <img src={{news2.img}}>
+        <ion-card-header>
+          <ion-card-title>
+            {{news2.title}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{news2.desc}}</p>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>
