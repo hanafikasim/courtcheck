@@ -14,8 +14,22 @@
     
     <ion-card-content>
       <ion-card-title>
-        Mohamed Hanafi
+        {{user.nickname}}
       </ion-card-title>
+      <ion-list>
+        <ion-item>
+          <ion-icon name="contact" item-left></ion-icon>
+          <h2>{{user.fullname}}</h2>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call" item-left></ion-icon>
+          <h2>{{user.phone}}</h2>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="at" item-left></ion-icon>
+          <h2>{{user.email}}</h2>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
     
   </ion-card>

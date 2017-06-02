@@ -11,4 +11,10 @@ export class ProfilePage {
 
   }
 
+  user = {
+    nickname: "hanafikasim",
+    fullname: "Mohamed Hanafi Bin Mohamad Kasim",
+    phone: "012-345 6789",
+    email: "hanafikasim@courtcheck.my"
+  }
 }
