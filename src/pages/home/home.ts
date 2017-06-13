@@ -130,21 +130,36 @@ export class HomePage {
     }
 
     onCreateEvent(){
+
+        let resetEventSource;
+
+        resetEventSource = {
+            title: 'Reset',
+            startTime: 0,
+            endTime: 0,
+            allDay: false  
+        }
+
         console.log("Hour : " + this.masa.getHours());
         this.startTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(), this.masa.getHours());
         this.endTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(),  this.masa.getHours()+1);
 
         this.events.push({
-                    title: 'Book ' + (this.counter + 1),
-                    startTime: this.startTime,
-                    endTime: this.endTime,
-                    allDay: false
-                    
+            title: 'Book ' + (this.counter + 1),
+            startTime: this.startTime,
+            endTime: this.endTime,
+            allDay: false        
         });
         
         this.counter+=1;
         
+        this.eventSource = resetEventSource;
+
         this.eventSource = this.events;
+
+        for(var i=0; i<this.events.length; i++){
+             console.log(this.events[i]);  
+        }
     }
 
     onTimeSelected(ev) {
@@ -175,12 +190,7 @@ export class HomePage {
 
                this.bookingConfirm();                
            }
-           this.declineBook = true;    
-
-           for(var i=0; i<this.events.length; i++){
-             console.log(this.events[i]);  
-           }
-           
+           this.declineBook = true;           
          }
          else
          {
