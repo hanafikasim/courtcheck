@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController  } from 'ionic-angular';
 
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
+
 
 @Component({
   selector: 'page-home',
@@ -8,6 +11,7 @@ import { NavController, AlertController  } from 'ionic-angular';
 })
 export class HomePage {
     
+
     // Declare variables
     eventSource;
     viewTitle;
@@ -17,8 +21,9 @@ export class HomePage {
 
     isToday:boolean;
 
+    items: FirebaseListObservable<any[]>;
     // Constructor
-    constructor(private navController:NavController, private alertCtrl: AlertController) {
+    constructor(private navController:NavController, private alertCtrl: AlertController, public db: AngularFireDatabase) {
 
     }
 
