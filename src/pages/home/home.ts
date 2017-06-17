@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { NavController, AlertController  } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
@@ -23,7 +23,7 @@ export class HomePage {
 
     isToday:boolean;
 
-    books : FirebaseListObservable<any[]>;
+    bookings : FirebaseListObservable<any[]>;
 
     // Constructor
     constructor(
@@ -32,7 +32,7 @@ export class HomePage {
         public navCtrl: NavController,
         public db: AngularFireDatabase,
     ) {
-       this.books = db.list('/Books');
+       this.bookings = db.list('/Bookings');
        
     }
 
@@ -87,7 +87,7 @@ export class HomePage {
     bookedAlert() {
       let alert = this.alertCtrl.create({
         title: 'Booked!',
-        subTitle: 'Slot time dah book',
+        subTitle: 'This slot time has been booked.',
         buttons: ['Got it!']
       });
       alert.present();
@@ -145,7 +145,7 @@ export class HomePage {
         //     case 17
         // }
 
-        this.books.push({
+        this.bookings.push({
                   name: "Hanafi",
                   year: this.masa.getFullYear(),
                   month: this.masa.getMonth(),
@@ -166,7 +166,7 @@ export class HomePage {
     updateEvent(){
         this.events = [];
 
-        this.db.list('/Books', {preserveSnapshot: true})
+        this.db.list('/Bookings', {preserveSnapshot: true})
         .subscribe(snapshots =>{
             snapshots.forEach(snapshots => {
                 // console.log(snapshots.key, snapshots.val().name);

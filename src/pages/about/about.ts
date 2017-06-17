@@ -8,14 +8,14 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 })
 export class AboutPage {
 
-  books : FirebaseListObservable<any[]>;
+  bookings : FirebaseListObservable<any[]>;
 
   constructor(
     public navCtrl: NavController,
     private alertCtrl: AlertController,
     public db: AngularFireDatabase,
     ) {
-      this.books = db.list('/Books');
+      this.bookings = db.list('/Bookings');
   }
 
   cancelConfirm(bookID) {
@@ -34,7 +34,7 @@ export class AboutPage {
             text: 'Sure',
             handler: data => {
               console.log('Sure clicked');
-              this.books.remove(bookID);
+              this.bookings.remove(bookID);
             }
           }
         ]
