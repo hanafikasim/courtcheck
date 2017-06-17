@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'page-about',
@@ -7,30 +8,17 @@ import { NavController, AlertController } from 'ionic-angular';
 })
 export class AboutPage {
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
+  books : FirebaseListObservable<any[]>;
 
+  constructor(
+    public navCtrl: NavController,
+    private alertCtrl: AlertController,
+    public db: AngularFireDatabase,
+    ) {
+      this.books = db.list('/Books');
   }
 
-  items = [{
-    start: "3:00 PM",
-    day: "Monday",
-    date: "September 11, 2017",
-    index: 0
-  },
-  {
-    start: "10:00 PM",
-    day: "Saturday",
-    date: "September 16, 2017",
-    index: 1
-  },
-  {
-    start: "8:00 PM",
-    day: "Thursday",
-    date: "November 9, 2017",
-    index: 2
-  }];
-
-  cancelConfirm(index) {
+  cancelConfirm(bookID) {
       let alert = this.alertCtrl.create({
         title: 'Confirm cancel booking',
         message: 'Are you sure to cancel this booking?',
@@ -44,9 +32,9 @@ export class AboutPage {
           },
           {
             text: 'Sure',
-            handler: () => {
+            handler: data => {
               console.log('Sure clicked');
-              this.items.splice(index, 1);
+              this.books.remove(bookID);
             }
           }
         ]

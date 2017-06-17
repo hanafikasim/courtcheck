@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController  } from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 
 @Component({
@@ -22,9 +23,17 @@ export class HomePage {
 
     isToday:boolean;
 
-    // Constructor
-    constructor(private navController:NavController, private alertCtrl: AlertController) {
+    books : FirebaseListObservable<any[]>;
 
+    // Constructor
+    constructor(
+        private navController:NavController,
+        private alertCtrl: AlertController,
+        public navCtrl: NavController,
+        public db: AngularFireDatabase,
+    ) {
+       this.books = db.list('/Books');
+       
     }
 
     // Set calendar properties
@@ -130,42 +139,50 @@ export class HomePage {
     }
 
     onCreateEvent(){
-
-        let resetEventSource;
-
-        resetEventSource = {
-            title: 'Reset',
-            startTime: 0,
-            endTime: 0,
-            allDay: false  
-        }
-
         console.log("Hour : " + this.masa.getHours());
-        this.startTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(), this.masa.getHours());
-        this.endTime = new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate(),  this.masa.getHours()+1);
-
-        this.events.push({
-            title: 'Book ' + (this.counter + 1),
-            startTime: this.startTime,
-            endTime: this.endTime,
-            allDay: false        
-        });
         
-        this.counter+=1;
-        
-        this.eventSource = resetEventSource;
+        // switch(this.masa.get){
+        //     case 17
+        // }
 
-        this.eventSource = this.events;
+        this.books.push({
+                  name: "Hanafi",
+                  year: this.masa.getFullYear(),
+                  month: this.masa.getMonth(),
+                  day:  this.masa.getDate(),
+                  hour: this.masa.getHours(),
+                  date: (new Date(this.masa.getFullYear(), this.masa.getMonth(), this.masa.getDate())).toString() 
+        })
+
+        this.updateEvent();
 
         for(var i=0; i<this.events.length; i++){
              console.log(this.events[i]);  
         }
+
+        //location.reload();
+    }
+
+    updateEvent(){
+        this.events = [];
+
+        this.db.list('/Books', {preserveSnapshot: true})
+        .subscribe(snapshots =>{
+            snapshots.forEach(snapshots => {
+                // console.log(snapshots.key, snapshots.val().name);
+                this.events.push({
+                    title: snapshots.val().name,
+                    startTime: new Date(snapshots.val().year, snapshots.val().month, snapshots.val().day, snapshots.val().hour),
+                    endTime: new Date(snapshots.val().year, snapshots.val().month, snapshots.val().day, snapshots.val().hour + 1),
+                    allDay: false
+                })
+            })
+        })
+
+        this.eventSource = this.events;
     }
 
     onTimeSelected(ev) {
-         //var eventsReset = [];
-         //var startDay = 1;
-         //var endDay = 1;
 
         console.log('Selected time: ' + ev.selectedTime + ', hasEvents: ' +
             (ev.events !== undefined && ev.events.length !== 0) + ', disabled: ' + ev.disabled);

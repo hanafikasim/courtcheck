@@ -3,6 +3,9 @@
     <ion-title>
       Time Slot
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left (click)="updateEvent()"><ion-icon name="refresh"></ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
   <ion-navbar color="dark">
     <ion-title>
@@ -17,7 +20,6 @@
 </ion-header>
 
 <ion-content class="has-header"> 
-
   <calendar id="calendar"
               [eventSource]="eventSource"
               [calendarMode]="calendar.mode"
@@ -28,5 +30,7 @@
               (onTimeSelected)="onTimeSelected($event)"
               step="30">
     </calendar>
+
+    
     
 </ion-content>

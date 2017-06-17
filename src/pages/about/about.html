@@ -7,13 +7,25 @@
 </ion-header>
 
 <ion-content padding>
+  <h2>Book List</h2>
+  <ion-list>
+    <ion-item *ngFor="let book of books | async">
+      <p>Name: {{book.name}}</p>
+      <p>Year: {{book.year}}</p>
+      <p>Month: {{book.month}}</p>
+      <p>Day: {{book.day}}</p>
+      <p>Hour: {{book.hour}}</p>
+      <p>Date: {{book.date}}</p>
+    </ion-item>
+  </ion-list>
+
   <ion-list inset>
-    <ion-item ion-item *ngFor="let item of items">
+    <ion-item ion-item *ngFor="let book of books | async">
       <ion-icon name="alarm" item-left></ion-icon>
-      <h2>{{item.start}}</h2>
-      <h2>{{item.day}}</h2>
-      <p>{{item.date}}</p>
-      <button ion-button color="danger" default item-right (click)="cancelConfirm(item.index)">Cancel</button>
+      <h2>{{book.hour}}</h2>
+      <h2>{{book.day}}</h2>
+      <p>{{book.date}}</p>
+      <button ion-button color="danger" default item-right (click)="cancelConfirm(book.$key)">Cancel</button>
     </ion-item>    
   </ion-list>
 </ion-content>
