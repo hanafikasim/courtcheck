@@ -86,7 +86,7 @@ export class HomePage {
     // Booked time slot alert
     bookedAlert() {
       let alert = this.alertCtrl.create({
-        title: 'Booked!',
+        title: 'Unavailable Slot!',
         subTitle: 'This slot time has been booked.',
         buttons: ['Got it!']
       });
